@@ -44,4 +44,19 @@ public class UserServiceTests {
 
     }
 
+    @Test
+    public void login(){
+        try {
+            String username = "Leooo";
+            String pwd = "5266";
+            User user = userService.login(username,pwd);
+            System.out.println(user);
+        } catch (ServiceException e) {
+            //获取类的对象，再获取类的名称
+            System.out.println(e.getClass().getSimpleName());
+            //获取异常的具体描述信息
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
