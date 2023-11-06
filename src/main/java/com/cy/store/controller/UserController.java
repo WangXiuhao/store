@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpSession;
 
 import static com.cy.store.controller.BaseController.OK;
 
@@ -44,8 +45,14 @@ public class UserController extends BaseController{ //要继承！！
 
     }
     @RequestMapping("login")
-    public JsonResult<User> login(String username,String password){
+    public JsonResult<User> login(String username, String password, HttpSession session){
         User user = userService.login(username,password);
+//        向session对象完成数据绑定
+        session.setAttribute("uid",user.getUid());
+        session.setAttribute("username",user.getUsername());
+//        获取session中绑定的数据
+        System.out.println(getUidFromSession(session));
+        System.out.println(getUsernameFromSession(session));
         return new JsonResult<User>(OK,user);
     }
 }
